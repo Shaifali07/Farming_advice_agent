@@ -1,0 +1,162 @@
+{
+  "name": "Smart Farming AI Agent",
+  "description": "Langflow-style multi-agent workflow using IBM watsonx.ai and Granite",
+  "nodes": [
+    {
+      "id": "chat_input",
+      "type": "ChatInput",
+      "position": {
+        "x": 50,
+        "y": 180
+      }
+    },
+    {
+      "id": "orchestrator",
+      "type": "Agent",
+      "title": "AI Smart Farming Orchestrator Agent",
+      "model": "ibm/granite-3-8b-instruct",
+      "position": {
+        "x": 260,
+        "y": 220
+      }
+    },
+    {
+      "id": "memory",
+      "type": "Memory",
+      "title": "Short-term Memory",
+      "position": {
+        "x": 620,
+        "y": 120
+      }
+    },
+    {
+      "id": "watsonx",
+      "type": "IBMWatsonxAI",
+      "model": "ibm/granite-3-8b-instruct",
+      "position": {
+        "x": 700,
+        "y": 320
+      }
+    },
+    {
+      "id": "tools",
+      "type": "Tools",
+      "title": "Tools / Agents",
+      "position": {
+        "x": 700,
+        "y": 520
+      }
+    },
+    {
+      "id": "crop",
+      "type": "Agent",
+      "title": "Crop Advisory Agent",
+      "tool": "RAG Knowledge Base",
+      "position": {
+        "x": 1080,
+        "y": 120
+      }
+    },
+    {
+      "id": "weather",
+      "type": "Agent",
+      "title": "Weather & Irrigation Agent",
+      "tool": "Weather API",
+      "position": {
+        "x": 1080,
+        "y": 320
+      }
+    },
+    {
+      "id": "pest",
+      "type": "Agent",
+      "title": "Pest / Disease Detection Agent",
+      "tool": "Image Analyzer",
+      "position": {
+        "x": 1080,
+        "y": 520
+      }
+    },
+    {
+      "id": "market",
+      "type": "Agent",
+      "title": "Market Insights Agent",
+      "tool": "Market Data API",
+      "position": {
+        "x": 1080,
+        "y": 720
+      }
+    },
+    {
+      "id": "merge",
+      "type": "Merge",
+      "title": "Merge Agent Outputs",
+      "position": {
+        "x": 1400,
+        "y": 420
+      }
+    },
+    {
+      "id": "output",
+      "type": "ChatOutput",
+      "position": {
+        "x": 1650,
+        "y": 500
+      }
+    }
+  ],
+  "edges": [
+    [
+      "chat_input",
+      "orchestrator"
+    ],
+    [
+      "orchestrator",
+      "memory"
+    ],
+    [
+      "orchestrator",
+      "watsonx"
+    ],
+    [
+      "orchestrator",
+      "tools"
+    ],
+    [
+      "watsonx",
+      "crop"
+    ],
+    [
+      "watsonx",
+      "weather"
+    ],
+    [
+      "tools",
+      "pest"
+    ],
+    [
+      "tools",
+      "market"
+    ],
+    [
+      "crop",
+      "merge"
+    ],
+    [
+      "weather",
+      "merge"
+    ],
+    [
+      "pest",
+      "merge"
+    ],
+    [
+      "market",
+      "merge"
+    ],
+    [
+      "merge",
+      "output"
+    ]
+  ]
+}
